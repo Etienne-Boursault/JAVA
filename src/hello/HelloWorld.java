@@ -1,10 +1,7 @@
-package com.company;
+package hello;
 
-public class Main {
-
+public class HelloWorld {
     public static void main(String[] args) {
-        // Ecrivez une fonction
         System.out.println("Hello World");
-
     }
 }
