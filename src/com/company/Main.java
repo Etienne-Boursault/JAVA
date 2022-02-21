@@ -1,87 +1,47 @@
 package com.company;
 
-import cleanHello.Book;
-import heritage.Carre;
-import heritage.FigureGeometrique;
-import polymorphisme.Animal;
-import polymorphisme.Chien;
-import polymorphisme.Oiseau;
-import polymorphisme.Pigeon;
-import reference.Car;
-
-import java.util.*;
+import java.io.*;
 
 public class Main {
 
-    public static void main(String[] args) {
-        System.out.println("Hello World");
-        Book myBook = new Book("Titre","Etienne",3, "OC");
+    public static void main(String[] args) throws FileNotFoundException, IOException {
 
-        myBook.title = "The new title";
+        // Création d’un fileReader pour lire le fichier
+        FileReader fileReader = new FileReader("/path/to/the/file");
 
-        System.out.println(myBook);
-        System.out.println(myBook.title);
+        // Création d’un bufferedReader qui utilise le fileReader
+        BufferedReader reader = new BufferedReader(fileReader);
 
-        FigureGeometrique figure = new FigureGeometrique(1, 1);
-        figure.moveTo(1, 1);
-        Carre carre = new Carre(1, 1, 2);
-        carre.moveTo(2, 2);
+        try {
+            // une fonction à essayer pouvant générer une erreur
+            String line = reader.readLine();
 
-        Animal a1 = new Animal();
-        Animal a2 = new Chien();
-        Animal a3 = new Pigeon();
-        Animal a4 = new Oiseau();
+            while (line != null) {
+                // affichage de la ligne
+                System.out.println(line);
+                // lecture de la prochaine ligne
+                line = reader.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        reader.close();
 
-        a1.deplacer();
-        a2.deplacer();
-        a3.deplacer();
-        a4.deplacer();
+        // Création d’un fileWriter pour écrire dans un fichier
+        FileWriter fileWriter = new FileWriter("/path/to/the/file", false);
 
-        // Utilisez un tableau pour stocker un nombre fixe d'éléments
-        int[] cupsOfCoffePerDayOfTheWeek;
-        cupsOfCoffePerDayOfTheWeek = new int[7];
+        // Création d’un bufferedWriter qui utilise le fileWriter
+        BufferedWriter writer = new BufferedWriter(fileWriter);
 
-        // C'est la même chose que :
-        // int[] cupsOfCoffePerDayOfTheWeek = new int[7];
-
-        cupsOfCoffePerDayOfTheWeek[4] = 3;
-        System.out.println(cupsOfCoffePerDayOfTheWeek[0]);
-
-        // Listes ordonnées
-        List<Integer> myList = new ArrayList<Integer>();
-        myList.add(7);
-        myList.add(5);
-        myList.add(1, 12);
-        myList.set(0, 4);
-        myList.remove(1);
-        System.out.println(myList.size());
-
-        // Les Ensemble - collection non ordonnée
-        Set<String> ingredients = new HashSet<String>();
-        ingredients.add("egg");
-        ingredients.add("sugar");
-        ingredients.add("butter");
-        ingredients.add("salt");
-        ingredients.remove("salt");
-        System.out.println(ingredients.size());
-
-        // Dictionnaire ou "maps"
-        Map<String, Integer> myMap = new HashMap<String, Integer>();
-        myMap.put("Jenny", 34);
-        myMap.put("Livia", 28);
-        myMap.put("Paul", 31);
-        myMap.put("jenny", 21);
-        System.out.println(myMap.get("Jenny")); // -> 34
-        System.out.println(myMap.get("jenny")); // -> 21
-
-        Car car = new Car();
-        Car carToPaint = car;
-        System.out.println(car.color);
-        System.out.println(carToPaint.color);
-        carToPaint.color = "yellow";
-        System.out.println(car.color);
-        System.out.println(carToPaint.color);
-
-
+        try {
+            // ajout d’un texte à notre fichier
+            writer.write("preferenceNewsletter = false");
+            // Retour à la ligne
+            writer.newLine();
+            writer.write("preferenceColor = #425384");
+        } catch(IOException e){
+                e.printStackTrace();
+        }
+        writer.close();
     }
 }
